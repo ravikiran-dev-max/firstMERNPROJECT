@@ -5,7 +5,10 @@ import {
   getAdminEntriesApi,
   deleteAdminEntryApi,
   clearAllAdminEntriesApi,
-  getExportCsvUrl
+  getExportCsvUrl,
+  getRawBackendUrl,
+  saveCustomBackendUrl,
+  isBackendConfigured
 } from '../utils/api';
 import { FLAMES_CONFIG } from '../utils/flamesEngine';
 import { sounds } from '../utils/soundEffects';
@@ -16,6 +19,11 @@ const AdminDashboardPage = () => {
   const [keyInput, setKeyInput] = useState('');
   const [authError, setAuthError] = useState('');
   const [verifying, setVerifying] = useState(false);
+
+  // Backend connection state
+  const [backendUrl, setBackendUrl] = useState(getRawBackendUrl());
+  const [showServerConfig, setShowServerConfig] = useState(!isBackendConfigured());
+  const [serverSaveSuccess, setServerSaveSuccess] = useState('');
 
   // Entries and filters
   const [entries, setEntries] = useState([]);
@@ -94,6 +102,14 @@ const AdminDashboardPage = () => {
     } finally {
       setVerifying(false);
     }
+  };
+
+  const handleSaveBackendUrl = (e) => {
+    if (e) e.preventDefault();
+    saveCustomBackendUrl(backendUrl);
+    setServerSaveSuccess('Connected! You can now authenticate.');
+    setAuthError('');
+    setTimeout(() => setServerSaveSuccess(''), 4000);
   };
 
   const handleLogout = () => {
@@ -205,6 +221,65 @@ const AdminDashboardPage = () => {
               )}
             </button>
           </form>
+
+          {/* Backend Connection Panel */}
+          <div className="mt-4 pt-3 text-start" style={{ borderTop: '1px solid rgba(255, 255, 255, 0.1)' }}>
+            <div className="d-flex justify-content-between align-items-center mb-1">
+              <span className="small text-secondary fw-semibold">
+                <i className="bi bi-hdd-network me-1"></i> Backend Server
+              </span>
+              <button
+                type="button"
+                className="btn btn-link btn-sm p-0 text-decoration-none text-info small"
+                onClick={() => setShowServerConfig(!showServerConfig)}
+              >
+                {showServerConfig ? 'Hide' : (backendUrl ? 'Change' : 'Connect')}
+              </button>
+            </div>
+
+            {backendUrl && !showServerConfig ? (
+              <div className="d-flex align-items-center gap-2 p-2 rounded-2 mt-1" style={{ background: 'rgba(255, 255, 255, 0.05)', fontSize: '0.8rem' }}>
+                <span className="badge rounded-pill bg-success-subtle text-success border border-success-subtle">
+                  Connected
+                </span>
+                <span className="text-truncate text-secondary font-monospace" title={backendUrl}>
+                  {backendUrl}
+                </span>
+              </div>
+            ) : null}
+
+            {showServerConfig && (
+              <div className="p-3 rounded-3 mt-2" style={{ background: 'rgba(255, 255, 255, 0.04)', border: '1px solid rgba(255, 255, 255, 0.1)' }}>
+                <label className="text-muted small mb-2 d-block" style={{ fontSize: '0.78rem' }}>
+                  Render Backend Service URL:
+                </label>
+                <div className="input-group input-group-sm mb-2">
+                  <input
+                    type="url"
+                    className="form-control bg-dark text-white border-secondary small font-monospace"
+                    placeholder="https://your-service.onrender.com"
+                    value={backendUrl}
+                    onChange={(e) => setBackendUrl(e.target.value)}
+                  />
+                  <button
+                    type="button"
+                    className="btn btn-outline-info"
+                    onClick={handleSaveBackendUrl}
+                  >
+                    Save
+                  </button>
+                </div>
+                {serverSaveSuccess && (
+                  <span className="text-success small d-block mb-1">
+                    <i className="bi bi-check-circle me-1"></i> {serverSaveSuccess}
+                  </span>
+                )}
+                <span className="text-secondary small d-block" style={{ fontSize: '0.72rem' }}>
+                  Enter your Render URL here to connect immediately. You can also configure <code>VITE_API_URL</code> in Vercel project settings.
+                </span>
+              </div>
+            )}
+          </div>
         </div>
       </div>
     );
