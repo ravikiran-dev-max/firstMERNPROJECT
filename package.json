@@ -11,7 +11,8 @@
     "install:all": "npm install && cd server && npm install && cd ../client && npm install",
     "install:client": "npm --prefix client install",
     "install:server": "npm --prefix server install",
-    "build": "npm --prefix client run build",
+    "postinstall": "npm --prefix client install",
+    "build": "npm --prefix client install && npm --prefix client run build && node -e \"const fs=require('fs'); fs.cpSync('client/dist', 'dist', {recursive:true});\"",
     "build:client": "npm --prefix client run build",
     "start": "npm --prefix server start",
     "start:server": "npm --prefix server start"
