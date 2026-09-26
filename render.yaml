@@ -1,0 +1,21 @@
+services:
+  - type: web
+    name: flames-game-backend
+    runtime: node
+    plan: free
+    region: oregon
+    rootDir: server
+    buildCommand: npm install
+    startCommand: npm start
+    healthCheckPath: /api/health
+    envVars:
+      - key: NODE_ENV
+        value: production
+      - key: PORT
+        value: 10000
+      - key: CLIENT_ORIGIN
+        value: "*"
+      - key: ADMIN_SECRET_KEY
+        generateValue: true
+      - key: MONGODB_URI
+        sync: false

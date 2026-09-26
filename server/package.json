@@ -1,0 +1,27 @@
+{
+  "name": "flames-game-server",
+  "version": "1.0.0",
+  "description": "Backend API for FLAMES Game MERN application",
+  "main": "src/index.js",
+  "type": "module",
+  "scripts": {
+    "start": "node src/index.js",
+    "dev": "nodemon src/index.js"
+  },
+  "engines": {
+    "node": ">=18.0.0"
+  },
+  "keywords": ["flames", "game", "mern", "express", "mongodb"],
+  "author": "FLAMES Team",
+  "license": "MIT",
+  "dependencies": {
+    "cors": "^2.8.5",
+    "dotenv": "^16.4.7",
+    "express": "^4.21.2",
+    "mongoose": "^8.9.5",
+    "morgan": "^1.10.0"
+  },
+  "devDependencies": {
+    "nodemon": "^3.1.9"
+  }
+}
