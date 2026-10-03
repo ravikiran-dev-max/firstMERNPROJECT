@@ -1,11 +1,16 @@
 {
+<<<<<<< HEAD
   "name": "client",
+=======
+  "name": "vite-project",
+>>>>>>> 7c8a8c19c062396d958d4e03aad9a4052ed53bdc
   "private": true,
   "version": "0.0.0",
   "type": "module",
   "scripts": {
     "dev": "vite",
     "build": "vite build",
+<<<<<<< HEAD
     "lint": "oxlint",
     "preview": "vite preview"
   },
@@ -22,6 +27,35 @@
     "@types/react-dom": "^19.2.7",
     "@vitejs/plugin-react": "^6.1.1",
     "oxlint": "^1.81.0",
+=======
+    "lint": "eslint .",
+    "preview": "vite preview"
+  },
+  "dependencies": {
+    "@tailwindcss/vite": "^4.3.3",
+    "axios": "^1.20.0",
+    "ck-react": "^0.0.1",
+    "file-server": "^2.2.1",
+    "jszip": "^3.10.2",
+    "lodash.debounce": "^4.0.8",
+    "lucide": "^1.48.0",
+    "lucide-react": "^1.48.0",
+    "react": "^19.2.8",
+    "react-dom": "^19.2.8",
+    "react-hook-toast": "^0.0.4",
+    "react-router-dom": "^7.18.4",
+    "tailwindcss": "^4.3.3"
+  },
+  "devDependencies": {
+    "@eslint/js": "^10.0.1",
+    "@types/react": "^19.2.18",
+    "@types/react-dom": "^19.2.7",
+    "@vitejs/plugin-react": "^6.1.1",
+    "eslint": "^10.10.0",
+    "eslint-plugin-react-hooks": "^7.1.1",
+    "eslint-plugin-react-refresh": "^0.5.6",
+    "globals": "^17.12.0",
+>>>>>>> 7c8a8c19c062396d958d4e03aad9a4052ed53bdc
     "vite": "^8.3.0"
   }
 }
